@@ -26,9 +26,9 @@ Image to Mesh API
 ## Callback to GAE [/captures/key/mesh]
 ### Callback from Meshing server with result [POST]
 AppEngine stores:
-latest obj as capture.obj3d
-quality under capture.quality[version] = ... (so that all quality measurements from old versions remain stored)
-latest images2d, list of 2D images in data.json, and images themselves underneath /captures/<key>/data2/...?scale=X
+* latest obj as capture.obj3d
+* quality under capture.quality[version] = ... (so that all quality measurements from old versions remain stored)
+* latest images2d, list of 2D images in data.json, and images themselves underneath /captures/<key>/data2/...?scale=X
 
 + Request (application/json)
 
