@@ -29,6 +29,7 @@ AppEngine stores:
 * latest obj as capture.obj3d
 * quality under capture.quality[version] = ... (so that all quality measurements from old versions remain stored)
 * latest images2d, list of 2D images in data.json, and images themselves underneath /captures/<key>/data2/...?scale=X
+* latest arc angles, accessible in data.json
 
 + Request (application/json)
 
@@ -51,7 +52,11 @@ AppEngine stores:
                 {
                     "img": "base64 encoded png 3",
                     "angle": 190
-                }
+                },
+            "arc": {
+                "min_angle": -30,
+                "max_angle": 190
+            }
         }
 
 + Response 200 (application/json)
@@ -59,3 +64,52 @@ AppEngine stores:
         {
             "status": "ok"
         }
+
+
+## Request info about dataset [/captures/key/data.json]
+### GET
++ Response 200 (application/json)
+
+        {
+          "images": [
+            "0000.jpg", 
+            "0001.jpg", 
+            "0003.jpg", 
+            "0004.jpg", 
+            "0005.jpg", 
+            "0006.jpg", 
+            "0007.jpg", 
+            "0008.jpg", 
+            "0009.jpg", 
+            "0010.jpg", 
+            "0011.jpg"
+          ],
+          "original_size": {
+            "width": 1080,
+            "height": 1440
+          },
+          "images2d": [
+            {"name": "0_groundtruth.png", "angle": 0.249391},
+            {"name": "1_groundtruth.png", "angle": 15.7231},
+            {"name": "2_groundtruth.png", "angle": 45.8254},
+            {"name": "3_groundtruth.png", "angle": 78.7173},
+            {"name": "4_groundtruth.png", "angle": 107.363},
+            {"name": "5_groundtruth.png", "angle": 135.763},
+            {"name": "6_groundtruth.png", "angle": 166.009},
+            {"name": "7_groundtruth.png", "angle": -157.619},
+            {"name": "8_groundtruth.png", "angle": -131.708},
+            {"name": "9_groundtruth.png", "angle": -100.915},
+            {"name": "10_groundtruth.png", "angle": -73.2636},
+            {"name": "11_groundtruth.png", "angle": -42.7094}
+          ],
+          "original_size_2d": {
+            "width": 1026,
+            "height": 1026
+          },
+          "arc": {
+            "min_angle": -180,
+            "max_angle": 180
+          }
+        }
+
+
