@@ -6,15 +6,31 @@ API to calculate mesh data on the server. Will run on manis.dacuda.com. Google A
 # Group image
 Image to Mesh API
 
-## Notes Collection [/images]
+## Mesh Calculation on Meshing Server [/]
 ### Calculate a Mesh [POST]
 + Request (application/json)
 
         {
-            "tar": "base64 encoded tar file"
+            "tar": "base64 encoded tar file",
+            "callback": "https://dacuda3d.appspot.com/captures/<key>/mesh"
         }
 
 + Response 200 (application/json)
+        
+        {
+            "status": "ok"
+        }
+
+
+## Callback to GAE [/captures/<key>/mesh]
+### Callback from Meshing server with result
+
+AppEngine stores:
+  - latest obj as capture.obj3d
+  - quality under capture.quality[version] = ... (so that all quality measurements from old versions remain stored)
+  - latest images2d, list of 2D images in data.json, and images themselves underneath /captures/<key>/data2/...?scale=X
+
++ Request (application/json)
 
         {
             "version": "0.2.6.234_76acda41f",
@@ -22,5 +38,24 @@ Image to Mesh API
             "quality": {
                 "visible": "28.9886",
                 "diff": "83.0343"
-            }
+            },
+            "images2d": [
+                {
+                    "img": "base64 encoded png 1",
+                    "angle": 110
+                },
+                {
+                    "img": "base64 encoded png 2",
+                    "angle": 160
+                },
+                {
+                    "img": "base64 encoded png 3",
+                    "angle": 190
+                }
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "status": "ok"
         }
